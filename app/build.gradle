@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.udacity.gradle.builditbigger"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    productFlavors {
+        paid {
+            applicationId = "com.udacity.gradle.builditbigger.paid"
+        }
+        free {
+            applicationId = "com.udacity.gradle.builditbigger.free"
+        }
+    }
+
+
+}
+
+dependencies {
+    //compile fileTree(dir: 'libs', include: ['*.jar'])
+    // Added for AdMob
+    compile project(":jokeprovider")
+    compile project(":jokeactivity")
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    freeCompile 'com.google.android.gms:play-services:8.3.0'
+    compile 'com.google.android.gms:play-services-ads:8.3.0'
+    freeCompile 'com.google.android.gms:play-services-identity:8.3.0'
+    freeCompile 'com.google.android.gms:play-services-gcm:8.3.0'
+    compile project(path: ':jokebackend', configuration: 'android-endpoints')
+    //freeCompile 'com.google.android.gms:play-services:8.3.0'
+}
